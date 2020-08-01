@@ -10,22 +10,21 @@ import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 
 
 
-const QuoteMachine = (props) => (
+const QuoteMachine = ( {assignNewQuoteIndex, selectedQuote} ) => (
     <Card>
         <CardContent>
-            { 
-        props.selectedQuote ? 
-        (
-            <Typography>
-                {props.selectedQuote.quote} - {props.selectedQuote.author}
+            <Typography id="text">
+                {selectedQuote.quote} - <span id="author">{selectedQuote.author}</span>
             </Typography>
-        ) : null
-        }    
         </CardContent>
     
 <CardActions >
-    <Button size="small" onClick={props.assignNewQuoteIndex}> Next Quote </Button>
-    <IconButton>
+    <Button id="new-quote" size="small" onClick={assignNewQuoteIndex}> Next Quote </Button>
+    <IconButton
+    id="tweet-quote"
+    target="_blank"
+    href={`https://twitter.com/intent/tweet?text=${selectedQuote.quote}&hashtags=johnflavian'srqm`}
+    >
         <FontAwesomeIcon icon={faTwitter}>
 
         </FontAwesomeIcon>
