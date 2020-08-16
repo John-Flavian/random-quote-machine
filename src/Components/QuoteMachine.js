@@ -10,20 +10,21 @@ import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 
 
 
-const QuoteMachine = ( {assignNewQuoteIndex, selectedQuote} ) => (
+function QuoteMachine(props) { 
+    return (
     <Card>
         <CardContent>
             <Typography id="text">
-                {selectedQuote.quote} - <span id="author">{selectedQuote.author}</span>
+                {props.selectedQuote.quote} - <span id="author">{props.selectedQuote.author}</span>
             </Typography>
         </CardContent>
     
 <CardActions>
-    <Button id="new-quote" size="small" onClick={assignNewQuoteIndex}> Next Quote </Button>
+    <Button id="new-quote" size="small" onClick={props.assignNewQuoteIndex}> Next Quote </Button>
     <IconButton
     id="tweet-quote"
     target="_blank"
-    href={encodeURI(`https://twitter.com/intent/tweet?text=${selectedQuote.quote}&hashtags=johnflavian'srqm`)}
+    href={encodeURI(`https://twitter.com/intent/tweet?text=${props.selectedQuote.quote}&hashtags=johnflavian'srqm`)}
     >
         <FontAwesomeIcon icon={faTwitter}>
 
@@ -33,6 +34,6 @@ const QuoteMachine = ( {assignNewQuoteIndex, selectedQuote} ) => (
     </Card>
 
     /* alternative way of writing React.fragment is <>  and  </> */
-);
+)}
 
 export default QuoteMachine;

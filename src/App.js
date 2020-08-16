@@ -1,88 +1,73 @@
-import React, { Component } from 'react';
-import { random } from 'lodash';
+import React, {useState, useEffect} from 'react';
+// import { random } from 'lodash';
 import 'typeface-roboto';
+import { random } from 'lodash';
 import  Grid from '@material-ui/core/Grid';
-import { withStyles } from '@material-ui/core/styles';
+// import { withStyles } from '@material-ui/core/styles';
 import QuoteMachine from './Components/QuoteMachine';
 
 
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      quotes: [],
-      selectedQuoteIndex: null,
-      bgColor: "blue"
+function App() {
+const initRandNum = Math.floor(( Math.random() * 100) + 1)
+//Sets a random number for the selectedQuoteIndex onload
+
+  const [quotes, setQuotes] = useState([]) 
+  const [selectedQuoteIndex, setSelectedQuoteIndex] = useState(initRandNum)
+
+    useEffect(() => {
+      fetch('https://gist.githubusercontent.com/natebass/b0a548425a73bdf8ea5c618149fe1fce/raw/f4231cd5961f026264bb6bb3a6c41671b044f1f4/quotes.json')
+      .then(response => response.json())
+      .then(data => { setQuotes(data) })
+    }, [])
+
+    const generateNewQuoteIndex = !quotes.length ? null : random(0, quotes.length - 1)
+     //gets a random number between 0 and the quotes array length
+
+    function assignNewQuoteIndex() {
+      return(
+      setSelectedQuoteIndex(generateNewQuoteIndex)
+      )
     }
-    this.assignNewQuoteIndex = this.assignNewQuoteIndex.bind(this);
-    this.generateNewQuoteIndex = this.generateNewQuoteIndex.bind(this);
-  }
-
-  componentDidMount() {
-    fetch('https://gist.githubusercontent.com/natebass/b0a548425a73bdf8ea5c618149fe1fce/raw/f4231cd5961f026264bb6bb3a6c41671b044f1f4/quotes.json')
-    .then(data => data.json())
-    .then(quotes => this.setState({ quotes }, this.assignNewQuoteIndex));
-  }
-
-  get selectedQuote() {
-    if (!this.state.quotes.length || !Number.isInteger(this.state.selectedQuoteIndex)) {
-      return undefined;
-    }
-    return this.state.quotes[this.state.selectedQuoteIndex];
-  }
-
-  /* 
-  *Returns an integer representing an index in states.quote
-  *If state.quotes is empty, returns undefined
-  */
+    //Assigns the random number to selectedQuotes
+   
+    const selectedQuote =
+    !quotes.length || !Number.isInteger(selectedQuoteIndex) ? null
+    : quotes[selectedQuoteIndex];
+  //selects the random quote from the quotes array
 
 
-generateNewQuoteIndex() {
-  if (!this.state.quotes.length) {
-    return;
-  } 
-  return random(0, this.state.quotes.length - 1);
-}
-
-assignNewQuoteIndex() {
-  this.setState({ selectedQuoteIndex: this.generateNewQuoteIndex(), bgColor: "green" });
-}
-
-
-  render() {
-
-    console.log(styles.container.backgroundColor);
-    return(
-    <Grid className={this.props.classes.container} id="quote-box"  justify="center" container>
+  return (
+    <div>
+      <h1>Hello World!</h1>
+      <Grid id="quote-box"  justify="center" container>
       <Grid xs={11} lg={8} item>
-        {
-        this.selectedQuote ?
+       
+      {
+        selectedQuote ?
         <QuoteMachine 
-            selectedQuote={this.selectedQuote} 
-            assignNewQuoteIndex={this.assignNewQuoteIndex}
-        
+            selectedQuote={selectedQuote} 
+            assignNewQuoteIndex={assignNewQuoteIndex}
         />
         : null
       }
-          
       </Grid>
+      </Grid>
+    </div>
+  )
 
-     </Grid>
-  );
 }
-}
 
-const styles = {
-  container: {
-    alignItems: 'center',
-    display: 'flex',
-    height: '100vh',
-    backgroundColor: "blue"
-  }
-};
+// const styles = {
+//   container: {
+//     alignItems: 'center',
+//     display: 'flex',
+//     height: '100vh',
+//     backgroundColor: "blue"
+//   }
+// };
 
-export default withStyles(styles)(App);
+export default (App);
 
 
 //use $npm start; to start the server
