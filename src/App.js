@@ -5,13 +5,7 @@ import  Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import QuoteMachine from './Components/QuoteMachine';
 
-const styles = {
-  container: {
-    alignItems: 'center',
-    display: 'flex',
-    height: '100vh',
-  }
-};
+
 
 class App extends Component {
   constructor(props) {
@@ -19,6 +13,7 @@ class App extends Component {
     this.state = {
       quotes: [],
       selectedQuoteIndex: null,
+      bgColor: "blue"
     }
     this.assignNewQuoteIndex = this.assignNewQuoteIndex.bind(this);
     this.generateNewQuoteIndex = this.generateNewQuoteIndex.bind(this);
@@ -51,17 +46,23 @@ generateNewQuoteIndex() {
 }
 
 assignNewQuoteIndex() {
-  this.setState({ selectedQuoteIndex: this.generateNewQuoteIndex() });
+  this.setState({ selectedQuoteIndex: this.generateNewQuoteIndex(), bgColor: "green" });
 }
 
+
   render() {
-    console.log(this.state.generateNewQuoteIndex);
+
+    console.log(styles.container.backgroundColor);
     return(
     <Grid className={this.props.classes.container} id="quote-box"  justify="center" container>
       <Grid xs={11} lg={8} item>
         {
         this.selectedQuote ?
-        <QuoteMachine selectedQuote={this.selectedQuote} assignNewQuoteIndex={this.assignNewQuoteIndex}/>
+        <QuoteMachine 
+            selectedQuote={this.selectedQuote} 
+            assignNewQuoteIndex={this.assignNewQuoteIndex}
+        
+        />
         : null
       }
           
@@ -71,6 +72,15 @@ assignNewQuoteIndex() {
   );
 }
 }
+
+const styles = {
+  container: {
+    alignItems: 'center',
+    display: 'flex',
+    height: '100vh',
+    backgroundColor: "blue"
+  }
+};
 
 export default withStyles(styles)(App);
 

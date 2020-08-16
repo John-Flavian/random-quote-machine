@@ -18,7 +18,7 @@ const QuoteMachine = ( {assignNewQuoteIndex, selectedQuote} ) => (
             </Typography>
         </CardContent>
     
-<CardActions >
+<CardActions>
     <Button id="new-quote" size="small" onClick={assignNewQuoteIndex}> Next Quote </Button>
     <IconButton
     id="tweet-quote"
