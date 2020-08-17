@@ -1,78 +1,79 @@
-import React, { Component } from 'react';
-import { random } from 'lodash';
+import React, {useState, useEffect} from 'react';
 import 'typeface-roboto';
+import { random } from 'lodash';
 import  Grid from '@material-ui/core/Grid';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import QuoteMachine from './Components/QuoteMachine';
+import Header from './Components/Header'
+import randomColor from 'randomcolor'
 
-const styles = {
+const myStyles = makeStyles({
   container: {
     alignItems: 'center',
     display: 'flex',
+    height: 'auto',
+    marginTop: '20vh'
+  },
+  app: {
+    alignItems: 'center',
     height: '100vh',
-  }
-};
+    transition: 'background-color 2s ease',
+    overflow: 'hidden'
+  },
+   
+})
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      quotes: [],
-      selectedQuoteIndex: null,
+
+function App() {
+  const classes = myStyles()
+  const initRandNum = Math.floor(( Math.random() * 100) + 1)
+//Sets a random number for the selectedQuoteIndex onload
+
+  const [quotes, setQuotes] = useState([]) 
+  const [selectedQuoteIndex, setSelectedQuoteIndex] = useState(initRandNum)
+  const [bgColor, setBgColor] = useState(randomColor)
+  
+
+    useEffect(() => {
+      fetch('https://gist.githubusercontent.com/natebass/b0a548425a73bdf8ea5c618149fe1fce/raw/f4231cd5961f026264bb6bb3a6c41671b044f1f4/quotes.json')
+      .then(response => response.json())
+      .then(data => { setQuotes(data) })
+    }, [])
+
+    const generateNewQuoteIndex = !quotes.length ? null : random(0, quotes.length - 1)
+     //gets a random number between 0 and the quotes array length
+
+    function assignNewQuoteIndex() {
+      return(
+      setSelectedQuoteIndex(generateNewQuoteIndex),
+      setBgColor(randomColor)
+      )
     }
-    this.assignNewQuoteIndex = this.assignNewQuoteIndex.bind(this);
-    this.generateNewQuoteIndex = this.generateNewQuoteIndex.bind(this);
-  }
-
-  componentDidMount() {
-    fetch('https://gist.githubusercontent.com/natebass/b0a548425a73bdf8ea5c618149fe1fce/raw/f4231cd5961f026264bb6bb3a6c41671b044f1f4/quotes.json')
-    .then(data => data.json())
-    .then(quotes => this.setState({ quotes }, this.assignNewQuoteIndex));
-  }
-
-  get selectedQuote() {
-    if (!this.state.quotes.length || !Number.isInteger(this.state.selectedQuoteIndex)) {
-      return undefined;
-    }
-    return this.state.quotes[this.state.selectedQuoteIndex];
-  }
-
-  /* 
-  *Returns an integer representing an index in states.quote
-  *If state.quotes is empty, returns undefined
-  */
+    //Assigns the random number to selectedQuotes
+    //Changes the background-color too!
+   
+    const selectedQuote =
+    !quotes.length || !Number.isInteger(selectedQuoteIndex) ? null
+    : quotes[selectedQuoteIndex];
+  //selects the random quote from the quotes array
 
 
-generateNewQuoteIndex() {
-  if (!this.state.quotes.length) {
-    return;
-  } 
-  return random(0, this.state.quotes.length - 1);
-}
-
-assignNewQuoteIndex() {
-  this.setState({ selectedQuoteIndex: this.generateNewQuoteIndex() });
-}
-
-  render() {
-    console.log(this.state.generateNewQuoteIndex);
-    return(
-    <Grid className={this.props.classes.container} id="quote-box"  justify="center" container>
-      <Grid xs={11} lg={8} item>
-        {
-        this.selectedQuote ?
-        <QuoteMachine selectedQuote={this.selectedQuote} assignNewQuoteIndex={this.assignNewQuoteIndex}/>
+  return (
+    <div className={classes.app} style={{backgroundColor: bgColor}}>
+      <Header />
+      <Grid className={classes.container} id="quote-box"  justify="center" alignItems="center" container>
+      <Grid xs={11} lg={8} item>  
+      {
+        selectedQuote ?
+        <QuoteMachine 
+            selectedQuote={selectedQuote} 
+            assignNewQuoteIndex={assignNewQuoteIndex}
+        />
         : null
       }
-          
       </Grid>
-
-     </Grid>
-  );
+      </Grid>
+    </div>
+  )
 }
-}
-
-export default withStyles(styles)(App);
-
-
-//use $npm start; to start the server
+export default App

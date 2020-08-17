@@ -10,22 +10,24 @@ import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 
 
 
-const QuoteMachine = ( {assignNewQuoteIndex, selectedQuote} ) => (
-    <Card>
-        <CardContent>
-            <Typography id="text">
-                {selectedQuote.quote} - <span id="author">{selectedQuote.author}</span>
+function QuoteMachine(props) { 
+    return (
+    <Card variant="outlined" id="text-box">
+        <CardContent id="text">
+               <Typography variant="h5">{props.selectedQuote.quote}</Typography> 
+            <Typography id="author-container">
+                <span id="author">_{props.selectedQuote.author}</span>
             </Typography>
         </CardContent>
     
-<CardActions >
-    <Button id="new-quote" size="small" onClick={assignNewQuoteIndex}> Next Quote </Button>
+<CardActions>
+    <Button id="new-quote" size="small" onClick={props.assignNewQuoteIndex} variant="outlined"> Next Quote </Button>
     <IconButton
     id="tweet-quote"
     target="_blank"
-    href={encodeURI(`https://twitter.com/intent/tweet?text=${selectedQuote.quote}&hashtags=johnflavian'srqm`)}
+    href={encodeURI(`https://twitter.com/intent/tweet?text=${props.selectedQuote.quote}&hashtags=johnflavian'srqm`)}
     >
-        <FontAwesomeIcon icon={faTwitter}>
+        <FontAwesomeIcon variant="outlined" icon={faTwitter}>
 
         </FontAwesomeIcon>
     </IconButton>
@@ -33,6 +35,6 @@ const QuoteMachine = ( {assignNewQuoteIndex, selectedQuote} ) => (
     </Card>
 
     /* alternative way of writing React.fragment is <>  and  </> */
-);
+)}
 
 export default QuoteMachine;
