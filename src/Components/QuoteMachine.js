@@ -12,10 +12,11 @@ import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 
 function QuoteMachine(props) { 
     return (
-    <Card>
-        <CardContent>
-            <Typography id="text">
-                {props.selectedQuote.quote} - <span id="author">{props.selectedQuote.author}</span>
+    <Card variant="outlined" id="text-box">
+        <CardContent id="text">
+               <Typography variant="h5">{props.selectedQuote.quote}</Typography> 
+            <Typography id="author-container">
+                <span id="author">_{props.selectedQuote.author}</span>
             </Typography>
         </CardContent>
     
@@ -26,7 +27,7 @@ function QuoteMachine(props) {
     target="_blank"
     href={encodeURI(`https://twitter.com/intent/tweet?text=${props.selectedQuote.quote}&hashtags=johnflavian'srqm`)}
     >
-        <FontAwesomeIcon icon={faTwitter}>
+        <FontAwesomeIcon variant="outlined" icon={faTwitter}>
 
         </FontAwesomeIcon>
     </IconButton>

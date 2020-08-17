@@ -11,13 +11,16 @@ const myStyles = makeStyles({
   container: {
     alignItems: 'center',
     display: 'flex',
-    height: '90vh',
+    height: 'auto',
+    marginTop: '20vh'
   },
   app: {
     alignItems: 'center',
     height: '100vh',
-    transition: 'background-color 2s ease'
-  } 
+    transition: 'background-color 2s ease',
+    overflow: 'hidden'
+  },
+   
 })
 
 
@@ -58,9 +61,8 @@ function App() {
   return (
     <div className={classes.app} style={{backgroundColor: bgColor}}>
       <Header />
-      <Grid className={classes.container} id="quote-box"  justify="center" container>
-      <Grid xs={11} lg={8} item>
-       
+      <Grid className={classes.container} id="quote-box"  justify="center" alignItems="center" container>
+      <Grid xs={11} lg={8} item>  
       {
         selectedQuote ?
         <QuoteMachine 
@@ -73,11 +75,5 @@ function App() {
       </Grid>
     </div>
   )
-
 }
-
-
-export default App;
-
-
-//use $npm start; to start the server
+export default App
