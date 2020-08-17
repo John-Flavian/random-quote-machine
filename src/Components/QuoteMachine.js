@@ -20,7 +20,7 @@ function QuoteMachine(props) {
         </CardContent>
     
 <CardActions>
-    <Button id="new-quote" size="small" onClick={props.assignNewQuoteIndex}> Next Quote </Button>
+    <Button id="new-quote" size="small" onClick={props.assignNewQuoteIndex} variant="outlined"> Next Quote </Button>
     <IconButton
     id="tweet-quote"
     target="_blank"

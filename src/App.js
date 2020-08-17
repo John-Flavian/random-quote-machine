@@ -1,19 +1,35 @@
 import React, {useState, useEffect} from 'react';
-// import { random } from 'lodash';
 import 'typeface-roboto';
 import { random } from 'lodash';
 import  Grid from '@material-ui/core/Grid';
-// import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import QuoteMachine from './Components/QuoteMachine';
+import Header from './Components/Header'
+import randomColor from 'randomcolor'
 
+const myStyles = makeStyles({
+  container: {
+    alignItems: 'center',
+    display: 'flex',
+    height: '90vh',
+  },
+  app: {
+    alignItems: 'center',
+    height: '100vh',
+    transition: 'background-color 2s ease'
+  } 
+})
 
 
 function App() {
-const initRandNum = Math.floor(( Math.random() * 100) + 1)
+  const classes = myStyles()
+  const initRandNum = Math.floor(( Math.random() * 100) + 1)
 //Sets a random number for the selectedQuoteIndex onload
 
   const [quotes, setQuotes] = useState([]) 
   const [selectedQuoteIndex, setSelectedQuoteIndex] = useState(initRandNum)
+  const [bgColor, setBgColor] = useState(randomColor)
+  
 
     useEffect(() => {
       fetch('https://gist.githubusercontent.com/natebass/b0a548425a73bdf8ea5c618149fe1fce/raw/f4231cd5961f026264bb6bb3a6c41671b044f1f4/quotes.json')
@@ -26,10 +42,12 @@ const initRandNum = Math.floor(( Math.random() * 100) + 1)
 
     function assignNewQuoteIndex() {
       return(
-      setSelectedQuoteIndex(generateNewQuoteIndex)
+      setSelectedQuoteIndex(generateNewQuoteIndex),
+      setBgColor(randomColor)
       )
     }
     //Assigns the random number to selectedQuotes
+    //Changes the background-color too!
    
     const selectedQuote =
     !quotes.length || !Number.isInteger(selectedQuoteIndex) ? null
@@ -38,9 +56,9 @@ const initRandNum = Math.floor(( Math.random() * 100) + 1)
 
 
   return (
-    <div>
-      <h1>Hello World!</h1>
-      <Grid id="quote-box"  justify="center" container>
+    <div className={classes.app} style={{backgroundColor: bgColor}}>
+      <Header />
+      <Grid className={classes.container} id="quote-box"  justify="center" container>
       <Grid xs={11} lg={8} item>
        
       {
@@ -58,16 +76,8 @@ const initRandNum = Math.floor(( Math.random() * 100) + 1)
 
 }
 
-// const styles = {
-//   container: {
-//     alignItems: 'center',
-//     display: 'flex',
-//     height: '100vh',
-//     backgroundColor: "blue"
-//   }
-// };
 
-export default (App);
+export default App;
 
 
 //use $npm start; to start the server
