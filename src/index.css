@@ -2,8 +2,7 @@
 
 #text {
   font-family: 'Muli', sans-serif;
-  font-size: larger;
-  
+  /* font-size: larger; */
 }
 
 #text::first-letter {
@@ -19,6 +18,7 @@
 }
 
 #text-box {
+  margin-top: 0px;
   background-color: inherit;
   border-radius: 10px;
   background: linear-gradient(90deg, 

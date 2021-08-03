@@ -12,13 +12,12 @@ const myStyles = makeStyles({
     alignItems: 'center',
     display: 'flex',
     height: 'auto',
-    marginTop: '20vh'
+    marginTop: '2vh'
   },
   app: {
     alignItems: 'center',
     height: '100vh',
-    transition: 'background-color 2s ease',
-    overflow: 'hidden'
+    transition: 'background-color 2s ease'
   },
    
 })
@@ -61,7 +60,12 @@ function App() {
   return (
     <div className={classes.app} style={{backgroundColor: bgColor}}>
       <Header />
-      <Grid className={classes.container} id="quote-box"  justify="center" alignItems="center" container>
+      <Grid
+      className={classes.container}
+      id="quote-box" 
+      justify="center"
+      alignItems="center"
+      container>
       <Grid xs={11} lg={8} item>  
       {
         selectedQuote ?
@@ -76,4 +80,4 @@ function App() {
     </div>
   )
 }
-export default App
+export default App;
