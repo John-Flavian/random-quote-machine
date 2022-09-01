@@ -21,7 +21,7 @@ function Header() {
     return(
         <div className={classes.headerStyle} >
             <Typography variant="h2">Random Quote Machine</Typography>
-            <Typography variant="subtitle1" className={classes.pStyle}>...a freecodecamp project</Typography>
+            <Typography variant="subtitle1" className={classes.pStyle}>...with rich philosophy</Typography>
         </div>
     )
 }
