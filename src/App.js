@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import QuoteMachine from './Components/QuoteMachine';
 import Header from './Components/Header'
 import randomColor from 'randomcolor'
+import Footer from './Components/Footer';
 
 const myStyles = makeStyles({
   container: {
@@ -58,25 +59,28 @@ function App() {
 
 
   return (
-    <div className={classes.app} style={{backgroundColor: bgColor}}>
-      <Header />
-      <Grid
-      className={classes.container}
-      id="quote-box" 
-      justify="center"
-      alignItems="center"
-      container>
-      <Grid xs={11} lg={8} item>  
-      {
-        selectedQuote ?
-        <QuoteMachine 
-            selectedQuote={selectedQuote} 
-            assignNewQuoteIndex={assignNewQuoteIndex}
-        />
-        : null
-      }
-      </Grid>
-      </Grid>
+    <div>
+      <div className={classes.app} style={{backgroundColor: bgColor}}>
+        <Header />
+          <Grid
+          className={classes.container}
+          id="quote-box" 
+          justify="center"
+          alignItems="center"
+          container>
+            <Grid xs={11} lg={8} item>  
+            {
+              selectedQuote ?
+              <QuoteMachine 
+                  selectedQuote={selectedQuote} 
+                  assignNewQuoteIndex={assignNewQuoteIndex}
+              />
+              : null
+            }
+            </Grid>
+          </Grid>
+      </div>
+        <Footer />
     </div>
   )
 }
